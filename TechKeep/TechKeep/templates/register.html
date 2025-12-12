@@ -1,0 +1,19 @@
+{% extends 'h_f.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="auth_div">
+        <form class="auth_form" id="register_form">
+        {% csrf_token %}
+        <h1>Регистрация</h1>
+        <input class="auth_input" id="username" type="text" placeholder="Ник">
+        <input class="auth_input" id="email" type="email" placeholder="Email">
+        <input class="auth_input" id="password" type="password" placeholder="Пароль">
+        <input class="auth_input" id="password_confirm" type="password" placeholder="Повторите пароль">
+        <p>Есть аккаунт? <a href="/login">Войти</a></p>
+        <button class="auth_button" type="submit">Регистрация</button> 
+    </form>
+    </div>
+
+    <script src="{% static 'app/register.js' %}"></script>
+{% endblock %}

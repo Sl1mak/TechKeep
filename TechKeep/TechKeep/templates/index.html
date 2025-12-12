@@ -1,0 +1,14 @@
+{% extends 'h_f.html' %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <main class="index_main">
+        {% if username %}
+            {% csrf_token %}
+            <h1>Здравствуйте, {{ username }}!</h1>
+        {% endif %}
+        <h3>Добро пожаловать в TechKeep!</h3>
+    </main>
+{% endblock %}

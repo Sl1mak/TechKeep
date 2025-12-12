@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header_cont">
+            <a href="/" class="logo_text">TechKeep</a>
+            <a href="/catalog" class="header_item">Каталог</a>
+            <p class="header_item">Контакты</p>
+        </div>
+            <div class="header_cont">
+                {% if username %}
+                    {% csrf_token %}
+                    <span class="auth_header_item">{{ username }}</span>
+                    <button id="logout" class="auth_header_item" style="font-size:15px;">Выйти</button>
+                {% else %}
+                    <a href="/login" class="auth_header_item">Войти</a>
+                    <p class="auth_header_item">или</p>
+                    <a href="/register" class="auth_header_item">Зарегистрироваться</a>
+                {% endif %}
+            </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <div class="contact">
+            <p class="footer_element">example@gmail.com</p>
+            <p class="footer_element">+1234567890</p>
+        </div>
+        <div class="rights">
+            <p class="footer_element">Все права защищены</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'app/h_f.js' %}"></script>
+</body>
+</html>
