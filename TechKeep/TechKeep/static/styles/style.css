@@ -32,6 +32,12 @@ h3 {
 a {
     text-decoration: none;
     color: skyblue;
+    transition: transform 0.2s ease;
+    transform-origin: center;
+}
+
+a:hover {
+    transform: scale(1.05);
 }
 
 p {
@@ -49,6 +55,13 @@ input {
 
 button {
     font-family: "Oswald", sans-serif;
+    transition: transform 0.2s ease;
+    transform-origin: center;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
 }
 
 /* Header Sector */
@@ -74,6 +87,47 @@ button {
     padding: 20px 0px 0px 0px;
     color: rgb(172, 172, 172);
 }
+
+.logout_btn {
+    background: none;
+    box-shadow: none;
+    border: none;
+}
+
+.contact_h {
+    position: relative;
+    display: inline-block;
+}
+
+.contact_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    position: absolute;
+    bottom: auto;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+
+    white-space: nowrap;
+}
+
+.contact_h:hover .contact_div {
+    opacity: 1;
+    visibility: visible;
+}
+
 
 /* Footer Sector */
 footer {
@@ -149,6 +203,7 @@ footer {
     padding: 20px 0px;
 
     background-color: #000000;
+    border-radius: 10px;
 
     display: flex;
     flex-direction: column;
@@ -162,11 +217,52 @@ footer {
     padding: 20px 0px;
 
     background-color: #000000;
+    border-radius: 10px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center
+}
+
+.catalog_title {
+    margin-bottom: 20px;
+}
+
+.catalog_items {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;    
+    gap: 20px;
+    justify-content: center;
+}
+
+.catalog_item {
+    background-color: #000000;
+    border: 1px solid #fff;
+    color: lightblue;
+    border-radius: 10px;
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    transform-origin: center;
+}
+
+.catalog_item:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.catalog_item.active {
+    background-color: #fff;
+    color: #000000;
+}
+
+.catalog_item_title {
+    color: black;
+    font-size: 32px;
 }
 
 

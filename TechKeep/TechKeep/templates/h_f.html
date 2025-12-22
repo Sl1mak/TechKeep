@@ -13,13 +13,19 @@
         <div class="header_cont">
             <a href="/" class="logo_text">TechKeep</a>
             <a href="/catalog" class="header_item">Каталог</a>
-            <p class="header_item">Контакты</p>
+            <div class="header_item contact_h">
+                Контакты
+                <div class="contact_div">
+                    <span class="contact_item">+1234567890</span>
+                    <span class="contact_item">example@gmail.com</span>
+                </div>
+            </div>
         </div>
             <div class="header_cont">
                 {% if username %}
                     {% csrf_token %}
                     <span class="auth_header_item">{{ username }}</span>
-                    <button id="logout" class="auth_header_item" style="font-size:15px;">Выйти</button>
+                    <button id="logout" class="auth_header_item logout_btn">Выйти</button>
                 {% else %}
                     <a href="/login" class="auth_header_item">Войти</a>
                     <p class="auth_header_item">или</p>

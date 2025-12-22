@@ -3,6 +3,13 @@
 
 {% block content %}
     <main class="catalog_main">
-        <h1>Каталог</h1>
+        <h1 class="catalog_title">Каталог</h1>
+        <div class="catalog_items">
+            {% for item in categories %}
+                <button type="button" class="catalog_item"> {{ item.title }}</button>
+            {% endfor %}
+        </div>
     </main>
-{% endblock %}
+
+    <script src="{% static 'app/catalog.js' %}"></script>
+{% endblock %} 

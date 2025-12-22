@@ -12,7 +12,20 @@ def index(request):
     return render(request, "index.html", {"username": username})
 
 def catalog(request):
-    return render(request, "catalog.html")
+    username = request.session.get('username')
+    categories = [
+        {"title": "Смартфоны"},
+        {"title": "Планшеты"},
+        {"title": "Ноутбуки"},
+        {"title": "Компьютеры"},
+        {"title": "Аксессуары"},
+        {"title": "Электроника"},
+    ]
+    return render(request, "catalog.html", {
+        "username": username,
+        "categories": categories
+    })
+
 
 def login(request):
     return render(request, "login.html")
