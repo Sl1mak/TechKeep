@@ -9,6 +9,18 @@
                 <button type="button" class="catalog_item"> {{ item.title }}</button>
             {% endfor %}
         </div>
+        <div class="catalog_products">
+            {% for product in products %}
+                <div class="catalog_product">
+                    {% if product.image %}
+                        <img class="catalog_product_img" src="{{ product.image.url }}" alt="Product Image">
+                    {% else %}
+                        <img class="catalog_product_img" src="{% static 'img/no_image.png' %}" alt="Product Image">
+                    {% endif %}
+                    <h3 class="catalog_product_title">{{ product.name }}</h3>
+                    <p class="catalog_product_description">{{ product.description }}</p>
+                    <p class="catalog_product_price">Статус: {{ product.get_status_display }}</p>
+            {% endfor %}
     </main>
 
     <script src="{% static 'app/catalog.js' %}"></script>

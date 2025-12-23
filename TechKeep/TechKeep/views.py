@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
+from .models import Product
 import json
 
 def h_f(request):
@@ -21,9 +22,12 @@ def catalog(request):
         {"title": "Аксессуары"},
         {"title": "Электроника"},
     ]
+
+    products = Product.objects.all()
     return render(request, "catalog.html", {
         "username": username,
-        "categories": categories
+        "categories": categories,
+        "products": products,
     })
 
 
