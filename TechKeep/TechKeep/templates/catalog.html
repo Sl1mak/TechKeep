@@ -12,15 +12,25 @@
         <div class="catalog_products">
             {% for product in products %}
                 <div class="catalog_product">
-                    {% if product.image %}
-                        <img class="catalog_product_img" src="{{ product.image.url }}" alt="Product Image">
-                    {% else %}
-                        <img class="catalog_product_img" src="{% static 'img/no_image.png' %}" alt="Product Image">
-                    {% endif %}
-                    <h3 class="catalog_product_title">{{ product.name }}</h3>
-                    <p class="catalog_product_description">{{ product.description }}</p>
-                    <p class="catalog_product_price">Статус: {{ product.get_status_display }}</p>
+                    <div class="catalog_image_div">
+                        {% if product.image %}
+                            <img class="catalog_product_img" src="{{ product.image.url }}" alt="Product Image">
+                        {% else %}
+                            <img class="catalog_product_img" src="{% static 'img/no-image.png' %}" alt="Product Image">
+                        {% endif %}
+                    </div>
+                    <div class="catalog_product_info">
+                        <div class="catalog_product_text">
+                            <h2 class="catalog_product_title">{{ product.name }}</h2>
+                            <p class="catalog_product_description">{{ product.description }}</p>
+                        </div>
+                        <div class="status_div">
+                            <p class="catalog_product_status status-{{ product.status }}">Статус: {{ product.get_status_display }}</p>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
+        </div>
     </main>
 
     <script src="{% static 'app/catalog.js' %}"></script>

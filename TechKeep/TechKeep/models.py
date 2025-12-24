@@ -3,8 +3,6 @@ from django.db import models
 class Product(models.Model):
     STATUS_CHOICES = [
         ('under_review', 'Поступил в обработку'),
-        ('diagnosing_issue', 'Выявление проблемы'),
-        ('repairing', 'Ремонт'),
         ('testing', 'Тестирование'),
         ('ready_for_pickup', 'Готов к использованию'),
     ]
@@ -23,7 +21,6 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     description = models.TextField(max_length=500)
     diagnosting_description = models.TextField(max_length=500, blank=True)
-    repairing_description = models.TextField(max_length=500, blank=True)
     testing_description = models.TextField(max_length=500, blank=True)
     type = models.CharField(
         max_length=20, 
