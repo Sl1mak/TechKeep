@@ -14,16 +14,9 @@ def index(request):
 
 def catalog(request):
     username = request.session.get('username')
-    categories = [
-        {"title": "Смартфоны"},
-        {"title": "Планшеты"},
-        {"title": "Ноутбуки"},
-        {"title": "Компьютеры"},
-        {"title": "Аксессуары"},
-        {"title": "Электроника"},
-    ]
-
+    categories = Product.CATEGORY_CHOICES
     products = Product.objects.all()
+    
     return render(request, "catalog.html", {
         "username": username,
         "categories": categories,

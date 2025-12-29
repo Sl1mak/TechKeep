@@ -5,13 +5,15 @@
     <main class="catalog_main">
         <h1 class="catalog_title">Каталог</h1>
         <div class="catalog_items">
-            {% for item in categories %}
-                <button type="button" class="catalog_item"> {{ item.title }}</button>
+            {% for key, title in categories %}
+                <button type="button" class="catalog_item" data-category="{{ key }}">
+                    {{ title }}
+                </button>
             {% endfor %}
         </div>
         <div class="catalog_products">
             {% for product in products %}
-                <div class="catalog_product">
+                <div class="catalog_product" data-category="{{ product.type }}">
                     <div class="catalog_image_div">
                         {% if product.image %}
                             <img class="catalog_product_img" src="{{ product.image.url }}" alt="Product Image">
