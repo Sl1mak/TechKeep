@@ -331,3 +331,71 @@ footer {
 .status-ready_for_pickup {
     color: #2ecc71;
 }
+
+.new_product_div {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.new_product_btn {
+    background-color: #0b0d1d;
+    border: 1px solid #fff;
+    color: lightblue;
+    border-radius: 10px;
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    transform-origin: center; 
+}
+
+.new_product_input {
+    width: 95%;
+}
+
+.new_product_modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.new_product_modal_content {
+    position: relative;
+    background-color: #494949;
+    margin: 10% auto;
+    padding: 5px;
+    border-radius: 8px;
+    width: 30%;
+}
+
+.label_div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px 0 10px;
+    margin-bottom: 15px;
+}
+
+.inputs_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px
+}
+
+.close {
+    cursor: pointer;
+}

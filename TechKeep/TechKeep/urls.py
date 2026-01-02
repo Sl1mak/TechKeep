@@ -25,12 +25,13 @@ urlpatterns = [
 
     path("", views.index, name='index'),
     path("catalog", views.catalog, name='catalog'),
-    path("login", views.login, name='login'),
-    path("register", views.register, name='register'),
+    path("login", views.login_page, name='login'),
+    path("register_page", views.register_page, name='register_page'),
 
     path("registerUser", views.registerUser, name='registerUser'),
     path("loginUser", views.loginUser, name='loginUser'),
     path("logoutUser", views.logoutUser, name='logoutUser'),
+    path("add_product/", views.add_product, name='add_product'),
 ]
 
 if settings.DEBUG:

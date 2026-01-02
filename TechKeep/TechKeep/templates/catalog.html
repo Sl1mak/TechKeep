@@ -33,6 +33,32 @@
                 </div>
             {% endfor %}
         </div>
+        {% if is_admin %}
+            <div class="new_product_div">
+                <p>Хотите добавить новый продукт?</p>
+                <button class="new_product_btn" id="newProductModalBtn">Добавить</button>
+            </div>
+        {% endif %}
+        <form class="new_product_modal" id="newProductModal" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="new_product_modal_content" id="newProductModalContent">
+                <div class="label_div">
+                    <h2>Добавить продукт</h2>
+                    <span class="close" id="closeNewProductModal">&times;</span>
+                </div>
+                <div class="inputs_div">
+                    <input type="text" name="name" class="new_product_input" id="newProductName" placeholder="Название">
+                    <input type="text" name="description" class="new_product_input" id="newProductDescription" placeholder="Описание">
+                    <input type="file" name="image" id="newProductImage" accept="image/*">
+                    <select name="type" class="new_product_input">
+                        {% for key, title in categories %}
+                            <option value="{{ key }}">{{ title }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" id="addProductButton">Добавить</button>
+                </div>
+            </div>
+        </form>
     </main>
 
     <script src="{% static 'app/catalog.js' %}"></script>

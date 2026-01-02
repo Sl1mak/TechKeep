@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class Product(models.Model):
     STATUS_CHOICES = [
@@ -17,6 +18,7 @@ class Product(models.Model):
         ('other', 'Другое'),
     ]
 
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="products", blank=True, null=True)
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     description = models.TextField(max_length=500)

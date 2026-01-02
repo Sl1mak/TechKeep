@@ -22,9 +22,9 @@
             </div>
         </div>
             <div class="header_cont">
-                {% if username %}
+                {% if request.user.is_authenticated %}
                     {% csrf_token %}
-                    <span class="auth_header_item">{{ username }}</span>
+                    <span class="auth_header_item">{{ request.user.username }}</span>
                     <button id="logout" class="auth_header_item logout_btn">Выйти</button>
                 {% else %}
                     <a href="/login" class="auth_header_item">Войти</a>
