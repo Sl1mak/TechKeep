@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path("", views.index, name='index'),
-    path("catalog", views.catalog, name='catalog'),
+    path("catalog/<int:room_id>", views.catalog, name='catalog'),
     path("login", views.login_page, name='login'),
     path("register_page", views.register_page, name='register_page'),
 
@@ -32,6 +32,8 @@ urlpatterns = [
     path("loginUser", views.loginUser, name='loginUser'),
     path("logoutUser", views.logoutUser, name='logoutUser'),
     path("add_product/", views.add_product, name='add_product'),
+    path("create_room/", views.create_room, name='create_room'),
+    path("connect_room/", views.connect_room, name='connect_room'),
 ]
 
 if settings.DEBUG:

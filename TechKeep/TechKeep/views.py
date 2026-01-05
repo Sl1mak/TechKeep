@@ -1,11 +1,12 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from .models import Product
+from .models import Product, Room
+from .utils import generate_room_code
 import json
 
 def h_f(request):
@@ -20,23 +21,13 @@ def login_page(request):
 def register_page(request):
     return render(request, "register.html")
 
-def catalog(request):
-    user = request.user
-    products = Product.objects.none()
-    is_admin = False
-
-    if user.is_authenticated:
-        products = Product.objects.filter(user=user)
-        is_admin = user.is_superuser
-
-    # products = Product.objects.filter(user_id=user_id)
-
-    # categories = Product.CATEGORY_CHOICES
+def catalog(request, room_id):
+    room = get_object_or_404(Room, id=room_id)
+    products = Product.objects.filter(room_id=room_id)
     
     return render(request, "catalog.html", {
-        "categories": Product.CATEGORY_CHOICES,
         "products": products,
-        "is_admin": is_admin
+        "room": room
     })
 
 @csrf_exempt
@@ -74,7 +65,39 @@ def logoutUser(request):
     return JsonResponse({"message": "Logout successful"}, status=200)
 
 @require_POST
-def add_product(request):
+@login_required
+def create_room(request):
+    name = request.POST.get('name')
+
+    if not name:
+        return JsonResponse(
+            {'success': False, 'message': 'Название комнаты не может быть пустым'},
+            status=400
+        )
+
+    code = generate_room_code()
+    while Room.objects.filter(code=code).exists():
+        code = generate_room_code()
+
+    room = Room.objects.create(name=name, code=code)
+
+    return redirect('catalog', room_id=room.id)
+
+@require_POST
+@login_required
+def connect_room(request):
+    code = request.POST.get('code')
+
+    room = Room.objects.filter(code=code).first()
+
+    return redirect('catalog', room_id=room.id)
+
+@require_POST
+def add_product(request, room_id):
+    type_ = request.POST.get('type', 'other')
+    allowed_type = dict(Product.CATEGORY_CHOICES)
+    room = Room.Objects.get(id=room_id)
+
     if not request.user.is_authenticated:
         return JsonResponse(
             {'success': False, 'message': 'Вы не авторизованы'},
@@ -87,10 +110,6 @@ def add_product(request):
             status=403
         )
 
-    type_ = request.POST.get('type', 'other')
-
-    allowed_type = dict(Product.CATEGORY_CHOICES)
-
     if type_ not in allowed_type:
         return JsonResponse(
             {'success': False, 'message': 'Неверный тип продукта'},
@@ -98,7 +117,7 @@ def add_product(request):
         )
 
     Product.objects.create(
-        user=request.user,
+        room=room,
         name=request.POST.get('name'),
         description=request.POST.get('description'),
         type = type_,

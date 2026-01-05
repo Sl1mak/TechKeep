@@ -12,26 +12,30 @@
             {% endfor %}
         </div>
         <div class="catalog_products">
-            {% for product in products %}
-                <div class="catalog_product" data-category="{{ product.type }}">
-                    <div class="catalog_image_div">
-                        {% if product.image %}
-                            <img class="catalog_product_img" src="{{ product.image.url }}" alt="Product Image">
-                        {% else %}
-                            <img class="catalog_product_img" src="{% static 'img/no-image.png' %}" alt="Product Image">
-                        {% endif %}
-                    </div>
-                    <div class="catalog_product_info">
-                        <div class="catalog_product_text">
-                            <h2 class="catalog_product_title">{{ product.name }}</h2>
-                            <p class="catalog_product_description">{{ product.description }}</p>
+            {% if products %}
+                {% for product in products %}
+                    <div class="catalog_product" data-category="{{ product.type }}">
+                        <div class="catalog_image_div">
+                            {% if product.image %}
+                                <img class="catalog_product_img" src="{{ product.image.url }}" alt="Product Image">
+                            {% else %}
+                                <img class="catalog_product_img" src="{% static 'img/no-image.png' %}" alt="Product Image">
+                            {% endif %}
                         </div>
-                        <div class="status_div">
-                            <p class="catalog_product_status status-{{ product.status }}">Статус: {{ product.get_status_display }}</p>
+                        <div class="catalog_product_info">
+                            <div class="catalog_product_text">
+                                <h2 class="catalog_product_title">{{ product.name }}</h2>
+                                <p class="catalog_product_description">{{ product.description }}</p>
+                            </div>
+                            <div class="status_div">
+                                <p class="catalog_product_status status-{{ product.status }}">Статус: {{ product.get_status_display }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p>Нет продуктов</p>
+            {% endif %}
         </div>
         {% if is_admin %}
             <div class="new_product_div">
@@ -39,6 +43,7 @@
                 <button class="new_product_btn" id="newProductModalBtn">Добавить</button>
             </div>
         {% endif %}
+        <h3>Код комнаты: {{ room.code }}</h3>
         <form class="new_product_modal" id="newProductModal" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="new_product_modal_content" id="newProductModalContent">

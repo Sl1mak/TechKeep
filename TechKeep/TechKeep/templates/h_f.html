@@ -12,7 +12,11 @@
     <header>
         <div class="header_cont">
             <a href="/" class="logo_text">TechKeep</a>
-            <a href="/catalog" class="header_item">Каталог</a>
+            {% if user.is_authenticated %}
+                <a href="/catalog" class="header_item">Комната</a>
+            {% else %}
+                <a href="/login" class="header_item">Комната</a>
+            {% endif %}
             <div class="header_item contact_h">
                 Контакты
                 <div class="contact_div">

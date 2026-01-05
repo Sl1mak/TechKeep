@@ -5,10 +5,23 @@
 
 {% block content %}
     <main class="index_main">
-        {% if username %}
+        {% if user.is_authenticated %}
             {% csrf_token %}
-            <h1>Здравствуйте, {{ username }}!</h1>
+            <h1>Здравствуйте, {{ user.username }}!</h1>
         {% endif %}
-        <h3>Добро пожаловать в TechKeep!</h3>
+        <div class="room_blocks">
+            <form method="post" action="{% url 'connect_room' %}" class="room_div">
+                {% csrf_token %}
+                <p>Вход в комнату</p>
+                <input class="room_input" id="con_room_code" type="text" placeholder="Код комнаты" maxlength="6" name="code">
+                <button class="room_button" id="connect_button" type="submit">Войти</button>
+            </form>
+            <form method="post" action="{% url 'create_room' %}" class="room_div">
+                {% csrf_token %}
+                <p>Создать комнату</p>
+                <input class="room_input" id="cre_room_code" type="text" placeholder="Название комнаты" maxlength="32" name="name">
+                <button class="room_button" id="create_button" type="submit">Создать</button>
+            </form>
+        </div>
     </main>
 {% endblock %}
