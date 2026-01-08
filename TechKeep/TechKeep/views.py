@@ -13,7 +13,11 @@ def h_f(request):
     user = request.user
 
 def index(request):
-    return render(request, "index.html")
+    rooms = request.user.rooms.all()
+
+    return render(request, "index.html", {
+        "rooms": rooms
+    })
 
 def login_page(request):
     return render(request, "login.html")
@@ -68,6 +72,7 @@ def logoutUser(request):
 @login_required
 def create_room(request):
     name = request.POST.get('name')
+    user = request.user
 
     if not name:
         return JsonResponse(
@@ -80,6 +85,7 @@ def create_room(request):
         code = generate_room_code()
 
     room = Room.objects.create(name=name, code=code)
+    room.users.add(user)
 
     return redirect('catalog', room_id=room.id)
 
@@ -87,8 +93,11 @@ def create_room(request):
 @login_required
 def connect_room(request):
     code = request.POST.get('code')
-
+    user = request.user
     room = Room.objects.filter(code=code).first()
+
+    if (user not in room.users.all()):
+        room.users.add(user)
 
     return redirect('catalog', room_id=room.id)
 

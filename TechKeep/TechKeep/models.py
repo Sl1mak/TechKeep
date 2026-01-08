@@ -4,6 +4,7 @@ from django.conf import settings
 class Room(models.Model):
     name = models.CharField(max_length=32, unique=True)
     code = models.CharField(max_length=6, unique=True)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='rooms', blank=True)
 
     def __str__(self):
         return self.name

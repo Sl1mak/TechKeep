@@ -154,6 +154,35 @@ footer {
     color: #DEF2F1;
 }
 
+.help_text {
+    cursor: pointer;
+    color: #4da3ff;
+    text-decoration: underline;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+}
+
+.close {
+    cursor: pointer;
+    float: right;
+    font-size: 20px;
+}
+
+
 /* Auth Sector */
 .auth_div {
     height: 60vh;
@@ -234,6 +263,10 @@ footer {
 
 .room_input {
     font-size:16px;
+}
+
+.latest_rooms_div {
+    margin-top: 20px;
 }
 
 /* Catalog Sector */

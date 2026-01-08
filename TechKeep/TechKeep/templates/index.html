@@ -23,5 +23,15 @@
                 <button class="room_button" id="create_button" type="submit">Создать</button>
             </form>
         </div>
+        <div class="latest_rooms_div">
+            <h2>Последние комнаты</h2>
+            <div class="latest_rooms">
+                {% for room in rooms %}
+                    <a href="{% url 'catalog' room_id=room.id %}" class="latest_room">
+                        {{ room.name }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
     </main>
 {% endblock %}
