@@ -13,11 +13,14 @@ def h_f(request):
     user = request.user
 
 def index(request):
-    rooms = request.user.rooms.all()
+    if (request.user.is_authenticated == True):
+        rooms = request.user.rooms.all()
+        return render(request, "index.html", {
+            "rooms": rooms
+        })
 
-    return render(request, "index.html", {
-        "rooms": rooms
-    })
+    return render(request, "index.html")
+        
 
 def login_page(request):
     return render(request, "login.html")
@@ -28,10 +31,12 @@ def register_page(request):
 def catalog(request, room_id):
     room = get_object_or_404(Room, id=room_id)
     products = Product.objects.filter(room_id=room_id)
+    categories = Product.CATEGORY_CHOICES
     
     return render(request, "catalog.html", {
         "products": products,
-        "room": room
+        "room": room,
+        "categories": categories
     })
 
 @csrf_exempt
@@ -105,7 +110,7 @@ def connect_room(request):
 def add_product(request, room_id):
     type_ = request.POST.get('type', 'other')
     allowed_type = dict(Product.CATEGORY_CHOICES)
-    room = Room.Objects.get(id=room_id)
+    room = Room.objects.get(id=room_id)
 
     if not request.user.is_authenticated:
         return JsonResponse(
@@ -134,3 +139,24 @@ def add_product(request, room_id):
     )
 
     return JsonResponse({'success': True})
+
+def delete_product(request, product_id):
+    if not request.user.is_authenticated:
+        return JsonResponse(
+            {'success': False, 'message': 'Вы не авторизованы'},
+            status=401
+        )
+
+    product = get_object_or_404(Product, id=product_id)
+    product.delete()
+
+    return(JsonResponse({'success': True, 'message': 'Продукт удален'}))
+
+def exit_room(request, room_id):
+    room = get_object_or_404(Room, id=room_id)
+    user = request.user
+
+    if user in room.users.all():
+        room.users.remove(user)
+
+    return(JsonResponse({'success': True, 'message': 'Вы вышли из комнаты'}))

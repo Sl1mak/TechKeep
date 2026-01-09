@@ -3,6 +3,10 @@
 
 {% block content %}
     <main class="catalog_main">
+        <div class="room_info_div">
+            <button type="button" id="exitButton" class="exit_button" data-id="{{ room.id }}">Выйти</button>
+            <h3>Код комнаты: {{ room.code }}</h3>
+        </div>
         <h1 class="catalog_title">Каталог</h1>
         <div class="catalog_items">
             {% for key, title in categories %}
@@ -30,21 +34,25 @@
                             <div class="status_div">
                                 <p class="catalog_product_status status-{{ product.status }}">Статус: {{ product.get_status_display }}</p>
                             </div>
+                            {% if user.is_superuser %}
+                                <div class="delete_div">
+                                    <button class="delete_button" id="deleteProduct" data-id="{{ product.id }}" type="button">Удалить</button>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
-            {% else %}
+            {% else %} 
                 <p>Нет продуктов</p>
             {% endif %}
         </div>
-        {% if is_admin %}
+        {% if user.is_superuser %}
             <div class="new_product_div">
                 <p>Хотите добавить новый продукт?</p>
                 <button class="new_product_btn" id="newProductModalBtn">Добавить</button>
             </div>
         {% endif %}
-        <h3>Код комнаты: {{ room.code }}</h3>
-        <form class="new_product_modal" id="newProductModal" method="POST" enctype="multipart/form-data">
+        <form class="new_product_modal" id="newProductModal" data-id="{{ room.id }}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="new_product_modal_content" id="newProductModalContent">
                 <div class="label_div">

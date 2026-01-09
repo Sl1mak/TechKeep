@@ -31,9 +31,11 @@ urlpatterns = [
     path("registerUser", views.registerUser, name='registerUser'),
     path("loginUser", views.loginUser, name='loginUser'),
     path("logoutUser", views.logoutUser, name='logoutUser'),
-    path("add_product/", views.add_product, name='add_product'),
+    path("add_product/<int:room_id>/", views.add_product, name='add_product'),
     path("create_room/", views.create_room, name='create_room'),
     path("connect_room/", views.connect_room, name='connect_room'),
+    path("delete_product/<int:product_id>/", views.delete_product, name='delete_product'),
+    path("exit_room/<int:room_id>/", views.exit_room, name='exit_room'),
 ]
 
 if settings.DEBUG:

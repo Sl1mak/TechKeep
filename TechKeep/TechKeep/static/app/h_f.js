@@ -16,7 +16,7 @@ if (logoutBtn) {
         const data = await response.json();
 
         if (data.message === "Logout successful") {
-            window.location.reload();
+            window.location.href='/';
         }
     });
 }

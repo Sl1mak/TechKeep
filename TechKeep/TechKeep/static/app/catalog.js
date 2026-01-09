@@ -4,6 +4,8 @@ const newProductModalBtn = document.getElementById('newProductModalBtn');
 const newProductModal = document.getElementById('newProductModal');
 const newProductModalContent = document.getElementById('newProductModalContent');
 const closeNewProductModal = document.getElementById('closeNewProductModal');
+const deleteProductBtn = document.querySelectorAll('.delete_button');
+const exitBtn = document.getElementById('exitButton');
 
 let activeCategories = new Set();
 
@@ -35,12 +37,16 @@ function filterProducts() {
     });
 }
 
-newProductModalBtn.onclick = function() {
-  newProductModal.style.display = "block";
+if (newProductModalBtn) {
+  newProductModalBtn.onclick = function() {
+    newProductModal.style.display = "block";
+  }
 }
 
-closeNewProductModal.onclick = function() {
-  newProductModal.style.display = "none";
+if (closeNewProductModal) {
+  closeNewProductModal.onclick = function() {
+    newProductModal.style.display = "none";
+  }
 }
 
 window.onclick = function(event) {
@@ -53,8 +59,9 @@ newProductModal.addEventListener('submit', function (e) {
   e.preventDefault();
 
   const formdata = new FormData(newProductModal);
+  const room_id = e.currentTarget.dataset.id;
 
-  fetch('/add_product/', {
+  fetch(`/add_product/${room_id}/`, {
     method: 'POST',
     headers: {
       'X-CSRFToken': getCookie('csrftoken'),
@@ -70,6 +77,46 @@ newProductModal.addEventListener('submit', function (e) {
     }
     else {
       alert(data.message);
+    }
+  })
+})
+
+deleteProductBtn.forEach(btn => {
+  btn.addEventListener('click', function (e) {
+    const product_id = e.target.dataset.id;
+
+    fetch(`/delete_product/${product_id}/`, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken'),
+      },
+      credentials: 'same-origin',
+    })
+    .then(responce => responce.json())
+    .then(data => {
+      alert(data.message);
+      if (data.success) {
+        location.reload();
+      }
+    })
+  })
+})
+
+exitBtn.addEventListener('click', function (e) {
+  const room_id = e.currentTarget.dataset.id;
+
+  fetch(`/exit_room/${room_id}/`, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    credentials: 'same-origin',
+  })
+  .then(responce => responce.json())
+  .then(data => {
+    alert(data.message);
+    if (data.success) {
+      window.location.href='/';
     }
   })
 })

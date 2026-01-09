@@ -92,41 +92,6 @@ button {
     border: none;
 }
 
-.contact_h {
-    position: relative;
-    display: inline-block;
-}
-
-.contact_div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    position: absolute;
-    bottom: auto;
-    top: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-
-    background: #333;
-    color: #fff;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 14px;
-
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease;
-
-    white-space: nowrap;
-}
-
-.contact_h:hover .contact_div {
-    opacity: 1;
-    visibility: visible;
-}
-
-
 /* Footer Sector */
 footer {
     position: fixed;
@@ -267,6 +232,13 @@ footer {
 
 .latest_rooms_div {
     margin-top: 20px;
+}
+
+.latest_rooms {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    align-items: center;
 }
 
 /* Catalog Sector */
@@ -450,5 +422,48 @@ footer {
 }
 
 .close {
+    cursor: pointer;
+}
+
+.delete_div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete_button {
+    background-color: #0b0d1d;
+    border: 1px solid #fff;
+    color: lightblue;
+    border-radius: 5px;
+    padding: 7px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    transform-origin: center;
+    cursor: pointer;
+}
+
+.room_info_div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+}
+
+.exit_button {
+    background-color: #0b0d1d;
+    border: 1px solid #fff;
+    color: lightblue;
+    border-radius: 5px;
+    padding: 7px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    transform-origin: center;
     cursor: pointer;
 }

@@ -12,18 +12,6 @@
     <header>
         <div class="header_cont">
             <a href="/" class="logo_text">TechKeep</a>
-            {% if user.is_authenticated %}
-                <a href="/catalog" class="header_item">Комната</a>
-            {% else %}
-                <a href="/login" class="header_item">Комната</a>
-            {% endif %}
-            <div class="header_item contact_h">
-                Контакты
-                <div class="contact_div">
-                    <span class="contact_item">+1234567890</span>
-                    <span class="contact_item">example@gmail.com</span>
-                </div>
-            </div>
         </div>
             <div class="header_cont">
                 {% if request.user.is_authenticated %}
