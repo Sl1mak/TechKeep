@@ -108,6 +108,7 @@ def connect_room(request):
 
 @require_POST
 def add_product(request, room_id):
+    user = request.user
     type_ = request.POST.get('type', 'other')
     allowed_type = dict(Product.CATEGORY_CHOICES)
     room = Room.objects.get(id=room_id)
@@ -136,6 +137,7 @@ def add_product(request, room_id):
         description=request.POST.get('description'),
         type = type_,
         image=request.FILES.get('image'),
+        user=user
     )
 
     return JsonResponse({'success': True})

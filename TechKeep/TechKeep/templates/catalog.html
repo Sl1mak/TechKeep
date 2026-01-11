@@ -7,7 +7,6 @@
             <button type="button" id="exitButton" class="exit_button" data-id="{{ room.id }}">Выйти</button>
             <h3>Код комнаты: {{ room.code }}</h3>
         </div>
-        <h1 class="catalog_title">Каталог</h1>
         <div class="catalog_items">
             {% for key, title in categories %}
                 <button type="button" class="catalog_item" data-category="{{ key }}">
